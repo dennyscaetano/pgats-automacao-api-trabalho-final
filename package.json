@@ -10,7 +10,8 @@
     "test-graphql-external": "mocha 'test/graphql/external/**/*.test.js' --timeout 10000 --reporter mochawesome",
     "test-graphql-controller": "mocha 'test/graphql/controller/**/*.test.js' --timeout 10000 --reporter mochawesome",
     "start-rest": "node server.js",
-    "start-graphql": "node graphql/server.js"
+    "start-graphql": "node graphql/server.js",
+    "start": "node server.js & node graphql/server.js"
   },
   "keywords": [],
   "author": "",
