@@ -20,7 +20,7 @@ jobs:
 
     - name: Start GraphQL Server
       run: |
-        npm start-graphql &
+        npm run start-graphql &
         npx wait-on http://localhost:4000/graphql --timeout 30000
 
     - name: Run GraphQL External Tests
@@ -31,7 +31,7 @@ jobs:
 
     - name: Start Rest Server
       run: |
-        npm start-rest &
+        npm run start-rest &
         npx wait-on http://localhost:3000 --timeout 30000
 
     - name: Run Rest External Tests
