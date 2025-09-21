@@ -24,10 +24,10 @@ jobs:
         npx wait-on http://localhost:4000/graphql --timeout 30000
 
     - name: Run GraphQL External Tests
-      run: npm test-graphql-external
+      run: npm run test-graphql-external
 
     - name: Run GraphQL Controller Tests
-      run: npm test-graphql-controller
+      run: npm run test-graphql-controller
 
     - name: Start Rest Server
       run: |
@@ -35,7 +35,7 @@ jobs:
         npx wait-on http://localhost:3000 --timeout 30000
 
     - name: Run Rest External Tests
-      run: npm test-rest-external
+      run: npm run test-rest-external
 
     - name: Run Rest Controller Tests
-      run: npm test-rest-controller
+      run: npm run test-rest-controller
