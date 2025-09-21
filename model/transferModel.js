@@ -1,6 +1,6 @@
 // In-memory loans database
-const loans = [];
+const loans = []
 
 module.exports = {
   loans
-};
+}

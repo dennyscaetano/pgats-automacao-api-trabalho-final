@@ -40,8 +40,8 @@ const books = [
     available: true,
     category: "Literatura Infantil"
   }
-];
+]
 
 module.exports = {
   books
-};
+}

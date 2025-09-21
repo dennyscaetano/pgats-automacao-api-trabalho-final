@@ -1,4 +1,4 @@
-const { gql } = require('apollo-server-express');
+const { gql } = require('apollo-server-express')
 
 module.exports = gql`
   type Member {
@@ -48,4 +48,4 @@ module.exports = gql`
     borrowBook(bookId: Int!, days: Int): Loan!
     returnBook(bookId: Int!): Loan!
   }
-`;
+`

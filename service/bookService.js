@@ -1,11 +1,11 @@
-const { books } = require('../model/bookModel');
+const { books } = require('../model/bookModel')
 
 function findBookById(id) {
-  return books.find(b => b.id === parseInt(id));
+  return books.find(b => b.id === parseInt(id))
 }
 
 function findBookByTitle(title) {
-  return books.find(b => b.title.toLowerCase().includes(title.toLowerCase()));
+  return books.find(b => b.title.toLowerCase().includes(title.toLowerCase()))
 }
 
 function listBooks() {
@@ -16,11 +16,11 @@ function listBooks() {
     isbn: b.isbn,
     available: b.available,
     category: b.category
-  }));
+  }))
 }
 
 function searchBooks(query) {
-  const searchTerm = query.toLowerCase();
+  const searchTerm = query.toLowerCase()
   return books.filter(b => 
     b.title.toLowerCase().includes(searchTerm) ||
     b.author.toLowerCase().includes(searchTerm) ||
@@ -32,16 +32,16 @@ function searchBooks(query) {
     isbn: b.isbn,
     available: b.available,
     category: b.category
-  }));
+  }))
 }
 
 function updateBookAvailability(bookId, available) {
-  const book = findBookById(bookId);
+  const book = findBookById(bookId)
   if (book) {
-    book.available = available;
-    return book;
+    book.available = available
+    return book
   }
-  throw new Error('Livro não encontrado');
+  throw new Error('Livro não encontrado')
 }
 
 module.exports = { 
@@ -50,4 +50,4 @@ module.exports = {
   listBooks, 
   searchBooks, 
   updateBookAvailability 
-};
+}

@@ -1,23 +1,23 @@
 // app.js para ApolloServer
-const express = require('express');
-const { ApolloServer } = require('apollo-server-express');
-const typeDefs = require('./typeDefs');
-const resolvers = require('./resolvers');
-const authenticate = require('./authenticate');
+const express = require('express')
+const { ApolloServer } = require('apollo-server-express')
+const typeDefs = require('./typeDefs')
+const resolvers = require('./resolvers')
+const authenticate = require('./authenticate')
 
-const app = express();
+const app = express()
 
 const server = new ApolloServer({
   typeDefs,
   resolvers,
   context: ({ req }) => authenticate(req)
-});
+})
 
 async function startApolloServer() {
-  await server.start();
-  server.applyMiddleware({ app });
+  await server.start()
+  server.applyMiddleware({ app })
 }
 
-startApolloServer();
+startApolloServer()
 
-module.exports = app;
+module.exports = app

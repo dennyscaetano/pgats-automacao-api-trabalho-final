@@ -1,4 +1,4 @@
-const bcrypt = require('bcryptjs');
+const bcrypt = require('bcryptjs')
 
 // In-memory library members database
 const members = [
@@ -23,8 +23,8 @@ const members = [
     maxBooks: 5,
     borrowedBooks: []
   }
-];
+]
 
 module.exports = {
   members
-};
+}

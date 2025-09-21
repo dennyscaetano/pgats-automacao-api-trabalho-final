@@ -1,20 +1,20 @@
 // Bibliotecas
-const request = require('supertest');
-const sinon = require('sinon');
-const { expect } = require('chai');
-const { resetState } = require('../../testHelper');
+const request = require('supertest')
+const sinon = require('sinon')
+const { expect } = require('chai')
+const { resetState } = require('../../testHelper')
 
 // Aplicação
-const app = require('../../../app');
+const app = require('../../../app')
 
 // Mock
-const loanService = require('../../../service/loanService');
+const loanService = require('../../../service/loanService')
 
 // Testes
 describe('Loan Controller', () => {
     before(() => {
-        resetState();
-    });
+        resetState()
+    })
 
     describe('POST /loans/borrow', () => {
 
@@ -24,10 +24,10 @@ describe('Loan Controller', () => {
                 .send({
                     username: 'alexandre',
                     password: 'senha123'
-                });
+                })
 
-            token = respostaLogin.body.token;
-        });
+            token = respostaLogin.body.token
+        })
 
         it('Quando informo livro inexistente recebo 400', async () => {
             const resposta = await request(app)
@@ -35,31 +35,31 @@ describe('Loan Controller', () => {
                 .set('Authorization', `Bearer ${token}`)
                 .send({
                     bookId: 999
-                });
+                })
             
-            expect(resposta.status).to.equal(400);
+            expect(resposta.status).to.equal(400)
             expect(resposta.body).to.have.property('error', 'Livro não encontrado')
-        });
+        })
 
         it('Usando Mocks: Quando informo livro inexistente recebo 400', async () => {
             // Mocar apenas a função borrowBook do Service
-            const loanServiceMock = sinon.stub(loanService, 'borrowBook');
-            loanServiceMock.throws(new Error('Livro não encontrado'));
+            const loanServiceMock = sinon.stub(loanService, 'borrowBook')
+            loanServiceMock.throws(new Error('Livro não encontrado'))
 
             const resposta = await request(app)
                 .post('/loans/borrow')
                 .set('Authorization', `Bearer ${token}`)
                 .send({
                     bookId: 1
-                });
+                })
             
-            expect(resposta.status).to.equal(400);
-            expect(resposta.body).to.have.property('error', 'Livro não encontrado');
-        });
+            expect(resposta.status).to.equal(400)
+            expect(resposta.body).to.have.property('error', 'Livro não encontrado')
+        })
 
         it('Usando Mocks: Quando informo dados válidos eu tenho sucesso com 201 CREATED', async () => {
             // Mocar apenas a função borrowBook do Service
-            const loanServiceMock = sinon.stub(loanService, 'borrowBook');
+            const loanServiceMock = sinon.stub(loanService, 'borrowBook')
             loanServiceMock.returns({ 
                 id: 1,
                 memberUsername: "alexandre", 
@@ -68,7 +68,7 @@ describe('Loan Controller', () => {
                 borrowDate: new Date().toISOString(),
                 dueDate: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString(),
                 status: 'active'
-            });
+            })
 
             const resposta = await request(app)
                 .post('/loans/borrow')
@@ -76,24 +76,24 @@ describe('Loan Controller', () => {
                 .send({
                     bookId: 1,
                     days: 14
-                });
+                })
             
-            expect(resposta.status).to.equal(201);
+            expect(resposta.status).to.equal(201)
             
             // Validação com um Fixture
             const respostaEsperada = require('../fixture/respostas/quandoInformoValoresValidosEuTenhoSucessoCom201Created.json')
-            delete resposta.body.borrowDate;
-            delete resposta.body.dueDate;
-            delete respostaEsperada.borrowDate;
-            delete respostaEsperada.dueDate; 
-            expect(resposta.body).to.deep.equal(respostaEsperada);
-        });
+            delete resposta.body.borrowDate
+            delete resposta.body.dueDate
+            delete respostaEsperada.borrowDate
+            delete respostaEsperada.dueDate 
+            expect(resposta.body).to.deep.equal(respostaEsperada)
+        })
 
         afterEach(() => {
             // Reseto o Mock
-            sinon.restore();
+            sinon.restore()
         })
-    });
+    })
 
     describe('POST /loans/return', () => {
         it('Quando devolvo um livro com sucesso recebo 200', async () => {
@@ -104,7 +104,7 @@ describe('Loan Controller', () => {
                 .send({
                     bookId: 2,
                     days: 14
-                });
+                })
 
             // Agora devolve o livro
             const resposta = await request(app)
@@ -112,19 +112,19 @@ describe('Loan Controller', () => {
                 .set('Authorization', `Bearer ${token}`)
                 .send({
                     bookId: 2
-                });
+                })
             
-            expect(resposta.status).to.equal(200);
-        });
-    });
+            expect(resposta.status).to.equal(200)
+        })
+    })
 
     describe('GET /loans', () => {
         it('Quando listo empréstimos recebo 200', async () => {
             const resposta = await request(app)
                 .get('/loans')
-                .set('Authorization', `Bearer ${token}`);
+                .set('Authorization', `Bearer ${token}`)
             
-            expect(resposta.status).to.equal(200);
-        });
-    });
-});
+            expect(resposta.status).to.equal(200)
+        })
+    })
+})

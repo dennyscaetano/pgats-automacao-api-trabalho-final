@@ -1,22 +1,22 @@
-const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken')
 
-const SECRET = process.env.JWT_SECRET || 'secretdemo';
+const SECRET = process.env.JWT_SECRET || 'secretdemo'
 
 function authenticateToken(req, res, next) {
-  const authHeader = req.headers['authorization'];
-  const token = authHeader && authHeader.split(' ')[1];
+  const authHeader = req.headers['authorization']
+  const token = authHeader && authHeader.split(' ')[1]
 
   if (!token) {
-    return res.status(401).json({ message: 'Token de autenticação é obrigatório.' });
+    return res.status(401).json({ message: 'Token de autenticação é obrigatório.' })
   }
 
   jwt.verify(token, SECRET, (err, user) => {
     if (err) {
-      return res.status(403).json({ message: 'Token de acesso expirado ou inválido.' });
+      return res.status(403).json({ message: 'Token de acesso expirado ou inválido.' })
     }
-    req.user = user;
-    next();
-  });
+    req.user = user
+    next()
+  })
 }
 
-module.exports = authenticateToken;
+module.exports = authenticateToken
