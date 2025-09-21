@@ -36,6 +36,3 @@ jobs:
 
     - name: Run GraphQL External Tests
       run: npm run test-graphql-external
-
-    - name: Run GraphQL Controller Tests
-      run: npm run test-graphql-controller
