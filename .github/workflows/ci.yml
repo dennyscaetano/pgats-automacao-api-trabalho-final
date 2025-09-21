@@ -21,7 +21,10 @@ jobs:
     - name: Start Servers Rest & GraphQL and Wait for them
       run: |
         npm start &
-        npx wait-on http://localhost:4000/graphql --timeout 30000
+        npx wait-on http://localhost:4000/graphql --timeout 60000
+
+    - name: Check logs
+      run: tail -f /dev/null
 
     - name: Run tests
       run: npm test
